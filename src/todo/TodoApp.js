@@ -8,10 +8,29 @@ const todos = Array.from(
 );
 
 export class TodoApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { text: '' };
+    this.handleTodoTextChange = this.handleTodoTextChange.bind(this);
+    this.handleTodoSubmit = this.handleTodoSubmit.bind(this);
+  }
+
+  handleTodoTextChange(event) {
+    this.setState({ text: event.target.value });
+  }
+
+  handleTodoSubmit(event) {
+    this.setState({ text: '' });
+  }
+
   render() {
     return (
       <div className="container">
-        <TodoAddBar />
+        <TodoAddBar
+          text={this.state.text}
+          onTodoTextChange={this.handleTodoTextChange}
+          onTodoSubmit={this.handleTodoSubmit}
+        />
         <TodoList todos={todos} />
       </div>
     );
