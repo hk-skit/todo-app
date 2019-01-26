@@ -17,14 +17,21 @@ export class TodoAddBar extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter you tasks"
-          value={this.props.text}
-          onChange={this.handleTodoTextChange}
-        />
-        <input type="submit" value="Add" />
+      <form className="form-inline" onSubmit={this.handleSubmit}>
+        <div className="form-group mx-sm-3">
+          <label for="todo" className="sr-only">
+            Todo
+          </label>
+          <input
+            className="form-control"
+            name="todo"
+            type="text"
+            placeholder="Enter you tasks"
+            value={this.props.text}
+            onChange={this.handleTodoTextChange}
+          />
+        </div>
+        <input className="btn btn-outline-primary" type="submit" value="Add" />
       </form>
     );
   }

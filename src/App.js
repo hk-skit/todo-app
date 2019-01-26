@@ -3,6 +3,10 @@ import { TodoApp } from './todo/TodoApp';
 
 export default class App extends React.Component {
   render() {
-    return <TodoApp />;
+    return (
+      <div className="mt-10">
+        <TodoApp />
+      </div>
+    );
   }
 }

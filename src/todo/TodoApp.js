@@ -1,29 +1,31 @@
 import React from 'react';
 import { TodoList } from './TodoList';
 import { TodoAddBar } from './TodoAddBar';
-
-const todos = Array.from(
-  { length: 10 },
-  (_, index) => `Sup! I am your task ${index}`
-);
+import { TodoService } from './TodoService';
 
 export class TodoApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { text: '' };
     this.handleTodoTextChange = this.handleTodoTextChange.bind(this);
     this.handleTodoSubmit = this.handleTodoSubmit.bind(this);
+    this.state = { text: '', todos: [] };
+  }
+
+  componentDidMount() {
+    this.setState({ todos: TodoService.getTodos() });
   }
 
   handleTodoTextChange(event) {
     this.setState({ text: event.target.value });
   }
 
-  handleTodoSubmit(event) {
-    this.setState({ text: '' });
+  handleTodoSubmit() {
+    const todos = TodoService.addTodo(this.state.text);
+    this.setState({ todos, text: '' });
   }
 
   render() {
+    const todos = this.state.todos;
     return (
       <div className="container">
         <TodoAddBar
@@ -31,7 +33,7 @@ export class TodoApp extends React.Component {
           onTodoTextChange={this.handleTodoTextChange}
           onTodoSubmit={this.handleTodoSubmit}
         />
-        <TodoList todos={todos} />
+        {todos.length ? <TodoList todos={todos} /> : <p>Yeah!! No todos.</p>}
       </div>
     );
   }
